@@ -7,10 +7,10 @@ Serves as the main entry point for the `track` CLI command group.
 import json
 import logging
 
-from kdp_scout.config import get_marketplace
-from kdp_scout.db import BookRepository, init_db
-from kdp_scout.collectors.product_scraper import ProductScraper, CaptchaDetected
-from kdp_scout.collectors.bsr_model import estimate_daily_sales, estimate_monthly_revenue
+from core.research.config import get_marketplace
+from core.research.db import BookRepository, init_db
+from core.research.collectors.product_scraper import ProductScraper, CaptchaDetected
+from core.research.collectors.bsr_model import estimate_daily_sales, estimate_monthly_revenue
 
 logger = logging.getLogger(__name__)
 

@@ -5,8 +5,8 @@ import os
 import re
 import tempfile
 
-from book_formatter.config import BookConfig
-from book_formatter.parsers.ast_model import Book, Chapter
+from core.format.config import BookConfig
+from core.format.parsers.ast_model import Book, Chapter
 
 
 def parse_manuscript(config: BookConfig) -> Book:
@@ -34,7 +34,7 @@ def parse_manuscript(config: BookConfig) -> Book:
 
 def _parse_docx_file(filepath: str) -> Book:
     """Parse a .docx file by converting to markdown first."""
-    from book_formatter.parsers.docx_parser import docx_to_markdown
+    from core.format.parsers.docx_parser import docx_to_markdown
 
     markdown_content = docx_to_markdown(filepath)
 

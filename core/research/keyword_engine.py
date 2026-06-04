@@ -14,13 +14,13 @@ from datetime import datetime, date
 
 from bs4 import BeautifulSoup
 
-from kdp_scout.db import (
+from core.research.db import (
     KeywordRepository, BookRepository, KeywordRankingRepository, init_db,
 )
-from kdp_scout.collectors.autocomplete import mine_autocomplete
-from kdp_scout.http_client import fetch, get_browser_headers
-from kdp_scout.rate_limiter import registry as rate_registry
-from kdp_scout.config import Config, get_marketplace
+from core.research.collectors.autocomplete import mine_autocomplete
+from core.research.http_client import fetch, get_browser_headers
+from core.research.rate_limiter import registry as rate_registry
+from core.research.config import Config, get_marketplace
 
 logger = logging.getLogger(__name__)
 
@@ -773,7 +773,7 @@ class ReverseASIN:
 
         # Determine method
         if method == 'auto':
-            from kdp_scout.collectors.dataforseo import DataForSEOCollector
+            from core.research.collectors.dataforseo import DataForSEOCollector
             dfs = DataForSEOCollector()
             if dfs.is_available():
                 method = 'dataforseo'
@@ -798,7 +798,7 @@ class ReverseASIN:
         Returns:
             List of ranking result dicts.
         """
-        from kdp_scout.collectors.dataforseo import DataForSEOCollector
+        from core.research.collectors.dataforseo import DataForSEOCollector
 
         dfs = DataForSEOCollector()
         raw_results = dfs.reverse_asin(asin)

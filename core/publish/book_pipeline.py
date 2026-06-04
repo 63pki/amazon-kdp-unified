@@ -18,7 +18,7 @@ import time
 from pathlib import Path
 from datetime import datetime
 
-OUTPUT_DIR = Path("os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))/books_output")
+OUTPUT_DIR = Path(os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))) / "books_output"
 
 
 def banner():

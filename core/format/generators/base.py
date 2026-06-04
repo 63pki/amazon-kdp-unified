@@ -7,8 +7,8 @@ import tempfile
 
 from rich.console import Console
 
-from book_formatter.config import BookConfig
-from book_formatter.parsers.ast_model import Book
+from core.format.config import BookConfig
+from core.format.parsers.ast_model import Book
 
 console = Console()
 

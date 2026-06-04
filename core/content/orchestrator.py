@@ -30,8 +30,13 @@ from typing import Callable, Optional
 import anthropic
 import httpx
 
-from agents.definitions import ALL_AGENTS, AgentDefinition
-from config import DEFAULT_MODEL, OUTPUT_DIR
+from core.content.definitions import ALL_AGENTS, AgentDefinition
+# config adapter — reads from unified config.yaml
+import yaml as _yaml, os as _os
+_cfg_path = _os.path.join(_os.path.dirname(__file__), '..', '..', 'config.yaml')
+_cfg = _yaml.safe_load(open(_cfg_path)) if _os.path.exists(_cfg_path) else {}
+DEFAULT_MODEL = _cfg.get('llm', {}).get('model', 'claude-opus-4-5')
+OUTPUT_DIR = _cfg.get('paths', {}).get('epub_output', './output')
 
 # OAuth tokens start with this prefix — everything else is a regular API key
 _OAUTH_TOKEN_PREFIX = "sk-ant-oat"

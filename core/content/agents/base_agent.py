@@ -4,10 +4,45 @@ import json
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional, Type
 
-from langchain.schema import BaseMessage, HumanMessage, SystemMessage
-from langchain_openai import ChatOpenAI
+# langchain removed
+# langchain removed
+
+# LangChain stub types (langchain removed — using direct Anthropic SDK)
+from dataclasses import dataclass as _dc
+from typing import Literal as _Lit
+
+@_dc
+class BaseMessage:
+    content: str = ""
+    role: str = "user"
+
+@_dc  
+class HumanMessage(BaseMessage):
+    role: str = "user"
+
+@_dc
+class AIMessage(BaseMessage):
+    role: str = "assistant"
+
+@_dc
+class SystemMessage(BaseMessage):
+    role: str = "system"
+
 from pydantic import BaseModel
-from tenacity import retry, stop_after_attempt, wait_exponential
+# tenacity removed
+
+# tenacity stub
+def retry(*args, **kwargs):
+    """No-op retry decorator (tenacity removed)."""
+    def decorator(fn):
+        return fn
+    if args and callable(args[0]):
+        return args[0]
+    return decorator
+
+def stop_after_attempt(n): return None
+def wait_exponential(**kw): return None
+
 import logging
 
 from ..models.config import GenerationConfig

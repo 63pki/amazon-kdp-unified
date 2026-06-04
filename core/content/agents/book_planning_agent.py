@@ -6,7 +6,7 @@ import logging
 
 from ..models.book import BookSeries
 from ..models.content import ChapterPlan, ContentPlan, Scene
-from ..services.structured_llm_service import StructuredBookPlanningService
+from core.content.services.structured_llm_service import StructuredBookPlanningService
 from .base_agent import AgentState, BaseAgent
 
 

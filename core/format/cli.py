@@ -10,9 +10,9 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from book_formatter import __version__
-from book_formatter.config import load_config, generate_example_config, TRIM_SIZES
-from book_formatter.parsers.markdown import parse_manuscript
+from core.format import __version__
+from core.format.config import load_config, generate_example_config, TRIM_SIZES
+from core.format.parsers.markdown import parse_manuscript
 
 console = Console()
 
@@ -166,19 +166,19 @@ def build(fmt, trim, config_path, output, clean, verbose):
 
 
 def _build_paperback(config, book, verbose=False):
-    from book_formatter.generators.pdf_paperback import PaperbackPDFGenerator
+    from core.format.generators.pdf_paperback import PaperbackPDFGenerator
     gen = PaperbackPDFGenerator(config, book)
     return gen.build(verbose=verbose)
 
 
 def _build_epub(config, book, verbose=False):
-    from book_formatter.generators.epub_standard import StandardEPUBGenerator
+    from core.format.generators.epub_standard import StandardEPUBGenerator
     gen = StandardEPUBGenerator(config, book)
     return gen.build(verbose=verbose)
 
 
 def _build_large_print(config, book, verbose=False):
-    from book_formatter.generators.pdf_paperback import PaperbackPDFGenerator
+    from core.format.generators.pdf_paperback import PaperbackPDFGenerator
     # Reuse paperback generator with large print settings
     config.print_settings.trim = config.print_settings.large_print_trim
     config.typography.body_size = config.typography.large_print_size
@@ -188,7 +188,7 @@ def _build_large_print(config, book, verbose=False):
 
 
 def _build_hardcover(config, book, verbose=False):
-    from book_formatter.generators.pdf_paperback import PaperbackPDFGenerator
+    from core.format.generators.pdf_paperback import PaperbackPDFGenerator
     config.print_settings.trim = config.print_settings.hardcover_trim
     gen = PaperbackPDFGenerator(config, book, trim=config.print_settings.hardcover_trim)
     return gen.build(verbose=verbose)

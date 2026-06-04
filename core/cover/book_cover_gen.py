@@ -20,7 +20,7 @@ except ImportError:
     print("Installa: pip install Pillow")
     sys.exit(1)
 
-OUTPUT_DIR = Path("os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))/books_output")
+OUTPUT_DIR = Path(os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))) / "books_output"
 
 # Palette professionale — 6 temi
 THEMES = {

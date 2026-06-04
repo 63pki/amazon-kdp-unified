@@ -1,0 +1,8 @@
+mystery
+thriller
+romance
+fantasy
+sci-fi
+horror
+historical fiction
+self-help

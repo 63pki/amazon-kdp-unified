@@ -17,9 +17,9 @@ from rich.progress import (
 )
 from rich.panel import Panel
 
-from kdp_scout import __version__
-from kdp_scout.config import Config, MARKETPLACES, get_marketplace
-from kdp_scout.db import init_db
+from core.research import __version__
+from core.research.config import Config, MARKETPLACES, get_marketplace
+from core.research.db import init_db
 
 console = Console()
 
@@ -89,8 +89,8 @@ def mine(seed, depth, department, marketplace):
         kdp-scout mine "romance" --department books
         kdp-scout mine "ausgestorbene tiere" -m de
     """
-    from kdp_scout.keyword_engine import mine_keywords
-    from kdp_scout.config import get_marketplace
+    from core.research.keyword_engine import mine_keywords
+    from core.research.config import get_marketplace
 
     mp = get_marketplace(marketplace)
     mp_label = marketplace or Config.MARKETPLACE
@@ -254,9 +254,9 @@ def track_add(asin, name, own, marketplace):
         kdp-scout track add B08N5WRWNW --own --name "My Book Title"
         kdp-scout track add B0G5B1KZVC --own -m de
     """
-    from kdp_scout.competitor_engine import CompetitorEngine
-    from kdp_scout.collectors.product_scraper import CaptchaDetected
-    from kdp_scout.collectors.bsr_model import sales_velocity_label
+    from core.research.competitor_engine import CompetitorEngine
+    from core.research.collectors.product_scraper import CaptchaDetected
+    from core.research.collectors.bsr_model import sales_velocity_label
 
     engine = CompetitorEngine(marketplace=marketplace)
     try:
@@ -358,7 +358,7 @@ def track_remove(asin):
     Example:
         kdp-scout track remove B003K16PJW
     """
-    from kdp_scout.competitor_engine import CompetitorEngine
+    from core.research.competitor_engine import CompetitorEngine
 
     engine = CompetitorEngine()
     try:
@@ -374,7 +374,7 @@ def track_remove(asin):
 @track.command('list')
 def track_list():
     """List all tracked books with latest snapshot data."""
-    from kdp_scout.competitor_engine import CompetitorEngine
+    from core.research.competitor_engine import CompetitorEngine
 
     engine = CompetitorEngine()
     try:
@@ -452,7 +452,7 @@ def track_snapshot(quiet, marketplace):
         kdp-scout track snapshot
         kdp-scout track snapshot --quiet
     """
-    from kdp_scout.competitor_engine import CompetitorEngine
+    from core.research.competitor_engine import CompetitorEngine
 
     engine = CompetitorEngine(marketplace=marketplace)
     try:
@@ -547,7 +547,7 @@ def track_snapshot(quiet, marketplace):
 @track.command('compare')
 def track_compare():
     """Side-by-side comparison of all tracked books."""
-    from kdp_scout.reporting import ReportingEngine
+    from core.research.reporting import ReportingEngine
 
     engine = ReportingEngine()
     try:
@@ -575,7 +575,7 @@ def import_ads(filepath, campaign):
         kdp-scout import-ads search-terms-report.csv
         kdp-scout import-ads report.csv --campaign "My Campaign"
     """
-    from kdp_scout.collectors.ads_importer import AdsImporter
+    from core.research.collectors.ads_importer import AdsImporter
 
     console.print(
         Panel(
@@ -644,7 +644,7 @@ def score(recalculate):
         kdp-scout score
         kdp-scout score --recalculate
     """
-    from kdp_scout.keyword_engine import KeywordScorer
+    from core.research.keyword_engine import KeywordScorer
 
     scorer = KeywordScorer()
     try:
@@ -705,8 +705,8 @@ def explain(keyword):
         kdp-scout explain "historical fiction"
         kdp-scout explain "thriller books"
     """
-    from kdp_scout.keyword_engine import KeywordScorer
-    from kdp_scout.db import KeywordRepository
+    from core.research.keyword_engine import KeywordScorer
+    from core.research.db import KeywordRepository
 
     repo = KeywordRepository()
     scorer = KeywordScorer()
@@ -821,7 +821,7 @@ def report_keywords(limit, min_score, output_format):
         kdp-scout report keywords --limit 100 --min-score 50
         kdp-scout report keywords --format csv > keywords.csv
     """
-    from kdp_scout.reporting import ReportingEngine
+    from core.research.reporting import ReportingEngine
 
     engine = ReportingEngine()
     try:
@@ -839,7 +839,7 @@ def report_competitors():
     Example:
         kdp-scout report competitors
     """
-    from kdp_scout.reporting import ReportingEngine
+    from core.research.reporting import ReportingEngine
 
     engine = ReportingEngine()
     try:
@@ -857,7 +857,7 @@ def report_ads():
     Example:
         kdp-scout report ads
     """
-    from kdp_scout.reporting import ReportingEngine
+    from core.research.reporting import ReportingEngine
 
     engine = ReportingEngine()
     try:
@@ -876,7 +876,7 @@ def report_gaps():
     Example:
         kdp-scout report gaps
     """
-    from kdp_scout.reporting import ReportingEngine
+    from core.research.reporting import ReportingEngine
 
     engine = ReportingEngine()
     try:
@@ -894,7 +894,7 @@ def report_trends(days):
         kdp-scout report trends
         kdp-scout report trends --days 7
     """
-    from kdp_scout.reporting import ReportingEngine
+    from core.research.reporting import ReportingEngine
 
     engine = ReportingEngine()
     try:
@@ -927,7 +927,7 @@ def export_ads(min_score, output_format):
         kdp-scout export ads
         kdp-scout export ads --min-score 50 > high-value-keywords.csv
     """
-    from kdp_scout.reporting import ReportingEngine
+    from core.research.reporting import ReportingEngine
 
     engine = ReportingEngine()
     try:
@@ -957,7 +957,7 @@ def export_backend(semantic, title, genre):
         kdp-scout export backend --semantic
         kdp-scout export backend --semantic --title "The First Key" --genre "historical thriller"
     """
-    from kdp_scout.reporting import ReportingEngine
+    from core.research.reporting import ReportingEngine
 
     engine = ReportingEngine()
     try:
@@ -990,9 +990,9 @@ def semantic_cmd(title, genre, no_cache):
         kdp-scout semantic --genre "romance"
         kdp-scout semantic --no-cache
     """
-    from kdp_scout.collectors.semantic import SemanticCollector
-    from kdp_scout.db import KeywordRepository
-    from kdp_scout.reporting import (
+    from core.research.collectors.semantic import SemanticCollector
+    from core.research.db import KeywordRepository
+    from core.research.reporting import (
         ReportingEngine, KDP_SLOT_COUNT, KDP_SLOT_MAX_BYTES,
     )
 
@@ -1178,13 +1178,13 @@ def reverse(asin, method, top_n, marketplace):
         kdp-scout reverse B003K16PJW --method probe --top 50
         kdp-scout reverse B08N5WRWNW --method dataforseo
     """
-    from kdp_scout.keyword_engine import ReverseASIN
+    from core.research.keyword_engine import ReverseASIN
 
     engine = ReverseASIN(marketplace=marketplace)
     try:
         # Determine method display
         if method == 'auto':
-            from kdp_scout.collectors.dataforseo import DataForSEOCollector
+            from core.research.collectors.dataforseo import DataForSEOCollector
             dfs = DataForSEOCollector()
             actual_method = 'dataforseo' if dfs.is_available() else 'probe'
         else:
@@ -1198,7 +1198,7 @@ def reverse(asin, method, top_n, marketplace):
             panel_lines.append(f'[bold]Keywords to check:[/bold] {top_n}')
 
         if actual_method == 'probe':
-            from kdp_scout.db import KeywordRepository, init_db
+            from core.research.db import KeywordRepository, init_db
             init_db()
             repo = KeywordRepository()
             try:
@@ -1329,7 +1329,7 @@ def reverse(asin, method, top_n, marketplace):
         )
 
         if actual_method == 'dataforseo':
-            from kdp_scout.collectors.dataforseo import DataForSEOCollector
+            from core.research.collectors.dataforseo import DataForSEOCollector
             dfs = DataForSEOCollector()
             console.print(
                 f'[dim]Estimated DataForSEO spend: '
@@ -1375,8 +1375,8 @@ def discover(asin, top_n, marketplace):
         kdp-scout discover B003K16PJW
         kdp-scout discover B003K16PJW --top 100
     """
-    from kdp_scout.keyword_engine import ReverseASIN
-    from kdp_scout.collectors.dataforseo import DataForSEOCollector
+    from core.research.keyword_engine import ReverseASIN
+    from core.research.collectors.dataforseo import DataForSEOCollector
 
     engine = ReverseASIN(marketplace=marketplace)
     dfs = DataForSEOCollector()
@@ -1549,12 +1549,12 @@ def trending(source, list_type, limit, save, marketplace):
         kdp-scout trending --no-save
         kdp-scout trending -m de
     """
-    from kdp_scout.collectors.trending import (
+    from core.research.collectors.trending import (
         scrape_bestseller_keywords, discover_trending_keywords,
     )
-    from kdp_scout.keyword_engine import mine_keywords
-    from kdp_scout.db import KeywordRepository, init_db
-    from kdp_scout.config import get_marketplace
+    from core.research.keyword_engine import mine_keywords
+    from core.research.db import KeywordRepository, init_db
+    from core.research.config import get_marketplace
 
     mp = get_marketplace(marketplace)
     mp_label = marketplace or Config.MARKETPLACE
@@ -1734,8 +1734,8 @@ def mine_categories(categories, depth, department, limit_categories, marketplace
         kdp-scout mine-categories --categories "romance,thriller,mystery"
         kdp-scout mine-categories --limit-categories 5
     """
-    from kdp_scout.collectors.trending import get_category_seeds
-    from kdp_scout.keyword_engine import mine_keywords
+    from core.research.collectors.trending import get_category_seeds
+    from core.research.keyword_engine import mine_keywords
 
     # Determine category list
     if categories:
@@ -1894,7 +1894,7 @@ def validate_keywords(title, subtitle, genre, optimize):
         kdp-scout validate-keywords --genre "historical fiction"
         kdp-scout validate-keywords --title "My Book" --optimize
     """
-    from kdp_scout.keyword_validator import (
+    from core.research.keyword_validator import (
         validate_backend_keywords, suggest_trope_keywords,
         optimize_slot_content,
     )
@@ -1923,7 +1923,7 @@ def validate_keywords(title, subtitle, genre, optimize):
 
     if not slots:
         # Fall back to database keywords
-        from kdp_scout.reporting import ReportingEngine
+        from core.research.reporting import ReportingEngine
         console.print(
             '[yellow]No slots entered. Using keywords from database...[/yellow]'
         )
@@ -2065,7 +2065,7 @@ def niche_score(keywords, department, top_n):
         kdp-scout niche-score "cozy mystery" "small town romance" "dark academia"
         kdp-scout niche-score "plague fiction" --department books
     """
-    from kdp_scout.niche_scorer import score_niche
+    from core.research.niche_scorer import score_niche
 
     console.print(
         Panel(
@@ -2221,7 +2221,7 @@ def category_finder(keyword, target_sales, department):
         kdp-scout category-finder "cozy mystery" --target-sales 10
         kdp-scout category-finder "dark romance" --department books
     """
-    from kdp_scout.niche_scorer import find_beatable_categories
+    from core.research.niche_scorer import find_beatable_categories
 
     console.print(
         Panel(
@@ -2309,7 +2309,7 @@ def category_finder(keyword, target_sales, department):
 
 # -- Phase 5: Automation, Seeds, Cron --------------------------------------
 
-from kdp_scout.cli_automation import automate, seeds, cron
+from core.research.cli_automation import automate, seeds, cron
 main.add_command(automate)
 main.add_command(seeds)
 main.add_command(cron)

@@ -46,81 +46,87 @@ craft = (BASE_DIR / "CRAFT.md").read_text()
 
 # Extract voice Part 2 only (the novel-specific voice)
 voice_lines = voice.split('\n')
-part2_start = next(i for i, l in enumerate(voice_lines) if 'Part 2' in l)
+part2_start = next((i for i, l in enumerate(voice_lines) if 'Part 2' in l), 0)
 voice_part2 = '\n'.join(voice_lines[part2_start:])
 
-prompt = f"""Build a complete world bible for this fantasy novel. This is the WORLD.MD file -- 
-the definitive reference for everything that EXISTS in this world. A writer should be able 
-to resolve any worldbuilding question from this document alone.
 
-SEED CONCEPT:
-{seed}
+def run(seed="", world_rules="", voice_part2=""):
+    """Generate world bible for a novel."""
+    prompt = f"""Build a complete world bible for this fantasy novel. This is the WORLD.MD file -- 
+    the definitive reference for everything that EXISTS in this world. A writer should be able 
+    to resolve any worldbuilding question from this document alone.
 
-VOICE IDENTITY (the tone and register of this novel):
-{voice_part2}
+    SEED CONCEPT:
+    {seed}
 
-CRAFT REQUIREMENTS (from CRAFT.md -- follow these):
-- Magic system needs HARD RULES with COSTS and LIMITATIONS per Sanderson's Second Law
-- Limitations >= powers in narrative prominence
-- Trace implications of magic through society, economy, law, religion
-- At least 2-3 societal implications of magic explored in depth
-- History must create PRESENT-DAY TENSIONS that drive the plot (not just backdrop)
-- Geography must be specific and sensory (not generic fantasy)
-- Iceberg principle: imply more than you state
-- Interconnection: pulling one thread should move everything
+    VOICE IDENTITY (the tone and register of this novel):
+    {voice_part2}
 
-STRUCTURE THE DOCUMENT WITH THESE SECTIONS:
+    CRAFT REQUIREMENTS (from CRAFT.md -- follow these):
+    - Magic system needs HARD RULES with COSTS and LIMITATIONS per Sanderson's Second Law
+    - Limitations >= powers in narrative prominence
+    - Trace implications of magic through society, economy, law, religion
+    - At least 2-3 societal implications of magic explored in depth
+    - History must create PRESENT-DAY TENSIONS that drive the plot (not just backdrop)
+    - Geography must be specific and sensory (not generic fantasy)
+    - Iceberg principle: imply more than you state
+    - Interconnection: pulling one thread should move everything
 
-## Cosmology & History
-A timeline of major events. Focus on events that create PRESENT-DAY tensions.
-Include the founding myth, key turning points, and recent events that matter to the plot.
+    STRUCTURE THE DOCUMENT WITH THESE SECTIONS:
 
-## Magic System
-### Hard Rules (Tonal Law)
-Specific, testable rules. What intervals do what. What progressions bind.
-What happens when you break the rules. Include COSTS and LIMITATIONS prominently.
+    ## Cosmology & History
+    A timeline of major events. Focus on events that create PRESENT-DAY tensions.
+    Include the founding myth, key turning points, and recent events that matter to the plot.
 
-### Soft Magic (Cass's Gift)
-What he perceives, how it works, what it costs HIM specifically.
-This should be mysterious but have consistent internal logic.
+    ## Magic System
+    ### Hard Rules (Tonal Law)
+    Specific, testable rules. What intervals do what. What progressions bind.
+    What happens when you break the rules. Include COSTS and LIMITATIONS prominently.
 
-### Societal Implications
-How does tonal law shape: governance, commerce, education, class structure,
-crime, family life, childhood, aging, disability?
+    ### Soft Magic (Cass's Gift)
+    What he perceives, how it works, what it costs HIM specifically.
+    This should be mysterious but have consistent internal logic.
 
-## Geography
-Cantamura's physical layout, districts, the natural amphitheater's acoustic properties.
-Neighboring places (at least 2-3). Sensory signatures for each location.
+    ### Societal Implications
+    How does tonal law shape: governance, commerce, education, class structure,
+    crime, family life, childhood, aging, disability?
 
-## Factions & Politics
-Who holds power, who wants it, who's being crushed by it.
-At least 3-4 factions with opposing interests.
+    ## Geography
+    Cantamura's physical layout, districts, the natural amphitheater's acoustic properties.
+    Neighboring places (at least 2-3). Sensory signatures for each location.
 
-## Bestiary / Flora / Natural World
-What's unique about the natural world in and around Cantamura?
+    ## Factions & Politics
+    Who holds power, who wants it, who's being crushed by it.
+    At least 3-4 factions with opposing interests.
 
-## Cultural Details
-Customs, taboos, festivals, food, clothing, coming-of-age rituals.
-Things that make daily life feel SPECIFIC.
+    ## Bestiary / Flora / Natural World
+    What's unique about the natural world in and around Cantamura?
 
-## Internal Consistency Rules
-Hard constraints a writer must not violate. The physics of sound in this world.
-What's possible and what's not.
+    ## Cultural Details
+    Customs, taboos, festivals, food, clothing, coming-of-age rituals.
+    Things that make daily life feel SPECIFIC.
 
-IMPORTANT:
-- Be SPECIFIC. Not "the city has districts" but name them, describe them, 
-  give them sensory signatures.
-- Every rule should have a COST or LIMITATION stated alongside it.
-- Include 2-3 facts per section that are unexplained, hinting at deeper systems 
-  (iceberg depth).
-- Facts should INTERCONNECT: the magic should shape the politics, the geography 
-  should shape the culture, the history should explain current faction conflicts.
-- Write in clean, direct prose. No AI slop. No "rich tapestry." No "delving."
-- The world should feel grounded and LIVED-IN, not imagined. Think: what does 
-  breakfast smell like? What do children play? How do old people complain?
-- Target ~3000-4000 words. Dense, not padded.
-"""
+    ## Internal Consistency Rules
+    Hard constraints a writer must not violate. The physics of sound in this world.
+    What's possible and what's not.
 
-print("Calling writer model...", file=sys.stderr)
-result = call_writer(prompt)
-print(result)
+    IMPORTANT:
+    - Be SPECIFIC. Not "the city has districts" but name them, describe them, 
+      give them sensory signatures.
+    - Every rule should have a COST or LIMITATION stated alongside it.
+    - Include 2-3 facts per section that are unexplained, hinting at deeper systems 
+      (iceberg depth).
+    - Facts should INTERCONNECT: the magic should shape the politics, the geography 
+      should shape the culture, the history should explain current faction conflicts.
+    - Write in clean, direct prose. No AI slop. No "rich tapestry." No "delving."
+    - The world should feel grounded and LIVED-IN, not imagined. Think: what does 
+      breakfast smell like? What do children play? How do old people complain?
+    - Target ~3000-4000 words. Dense, not padded.
+    """
+
+    print("Calling writer model...", file=sys.stderr)
+    result = call_writer(prompt)
+    print(result)
+
+if __name__ == "__main__":
+    run()

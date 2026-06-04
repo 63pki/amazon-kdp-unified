@@ -23,7 +23,7 @@ except ImportError:
     print("Installa python-docx: pip install python-docx")
     sys.exit(1)
 
-BOOK_DIR = Path("os.getenv("USER_HOME", str(Path.home())) + "/Desktop/GUMROAD_PACKAGES/OracleBook")
+BOOK_DIR = Path(os.getenv("USER_HOME", str(Path.home()))) / "Desktop/GUMROAD_PACKAGES/OracleBook"
 
 SOURCES = [
     ("oracle_factor_book_IT.md", "IL_FATTORE_ORACLE_KDP_v2.docx"),

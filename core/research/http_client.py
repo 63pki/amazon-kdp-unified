@@ -10,7 +10,7 @@ from urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
 import requests
 
-from kdp_scout.config import Config
+from core.research.config import Config
 
 logger = logging.getLogger(__name__)
 

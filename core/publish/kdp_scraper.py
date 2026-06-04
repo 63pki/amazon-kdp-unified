@@ -16,8 +16,8 @@ from datetime import datetime
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-COOKIES_FILE = Path("os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))/variables/amazon_kdp_cookies.json")
-OBSIDIAN_ROOT = Path("os.getenv("USER_HOME", str(Path.home())) + "/Documents/Obsidian Vault")
+COOKIES_FILE = Path(os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))) / "variables" / "amazon_kdp_cookies.json"
+OBSIDIAN_ROOT = Path(os.getenv("USER_HOME", str(Path.home()))) / "Documents/Obsidian Vault"
 KDP_BOOKS_DIR = OBSIDIAN_ROOT / "Amazon KDP"
 KDP_BOOKS_DIR.mkdir(parents=True, exist_ok=True)
 BOOKSHELF_URL = "https://kdp.amazon.com/en_US/bookshelf"
@@ -326,7 +326,7 @@ async def main():
             sys.stdout.flush()
 
             # Screenshot di ogni pagina
-            ss_path = Path(f"os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))/variables/kdp_page_{page_num}.png")
+            ss_path = Path(os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))) / "variables" / f"kdp_page_{page_num}.png"
             await page.screenshot(path=str(ss_path), full_page=True)
 
             books = await extract_books_from_page(page)
@@ -361,7 +361,7 @@ async def main():
         create_kdp_index(all_books)
 
         # Salva JSON
-        json_path = Path("os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))/variables/kdp_books.json")
+        json_path = Path(os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))) / "variables/kdp_books.json"
         json_path.write_text(json.dumps(all_books, indent=2, ensure_ascii=False))
         print(f"\n  💾 Dati: {json_path} ({len(all_books)} libri)")
         print("  ✅ Scraping completo! Apri Obsidian per vedere le connessioni.")

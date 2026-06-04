@@ -14,9 +14,9 @@ import time
 
 import requests
 
-from kdp_scout.http_client import fetch
-from kdp_scout.rate_limiter import registry as rate_registry
-from kdp_scout.config import Config, get_marketplace
+from core.research.http_client import fetch
+from core.research.rate_limiter import registry as rate_registry
+from core.research.config import Config, get_marketplace
 
 logger = logging.getLogger(__name__)
 

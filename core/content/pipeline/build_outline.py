@@ -47,9 +47,10 @@ def call_model(prompt, max_tokens=1500):
         text = re.sub(r'\n?```$', '', text)
     return json.loads(text)
 
-def main():
-    # Load supporting docs for context
-    characters = (BASE_DIR / "characters.md").read_text()[:3000]
+# lazy-load: characters read at call time
+def _load_characters(): 
+    p = BASE_DIR / "characters.md"
+    return p.read_text() if p.exists() else ""
     
     entries = []
     
@@ -87,7 +88,10 @@ JSON only, no other text."""
         print(f"  {ch:2d}. {title_line} ({wc}w)")
     
     # Load existing outline header info
-    old_outline = (BASE_DIR / "outline.md").read_text()
+# lazy-load: old_outline read at call time
+def _load_old_outline(): 
+    p = BASE_DIR / "outline.md"
+    return p.read_text() if p.exists() else ""
     
     # Build new outline
     lines = []

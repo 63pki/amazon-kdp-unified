@@ -1,14 +1,17 @@
+from core.content.models.content import Scene, ChapterPlan
+from core.content.models.book import Book, Chapter
+from core.content.models.character import Character
 """Content generation agent for creating actual story content."""
 
 from typing import Dict, List, Optional, Any
 from pydantic import BaseModel
 
-from src.book_series_generator.models.content import Scene, ChapterPlan
-from src.book_series_generator.models.book import Book, Chapter
-from src.book_series_generator.models.character import Character
-from src.book_series_generator.services.llm_service import get_llm_service
-from src.book_series_generator.agents.base_agent import AgentState, BaseAgent
-from src.book_series_generator.services.structured_llm_service import get_token_limit_param
+# models removed (use dataclasses)
+# models removed (use dataclasses)
+# models removed (use dataclasses)
+# llm_service replaced by direct anthropic call
+from core.content.agents.base_agent import AgentState, BaseAgent
+# structured_llm replaced
 
 
 class ContentGenerationRequest(BaseModel):

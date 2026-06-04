@@ -8,9 +8,9 @@ Results are cached in the semantic_clusters database table.
 import json
 import logging
 
-from kdp_scout.collectors.base import BaseCollector
-from kdp_scout.config import Config
-from kdp_scout.db import SemanticClusterRepository, init_db
+from core.research.collectors.base import BaseCollector
+from core.research.config import Config
+from core.research.db import SemanticClusterRepository, init_db
 
 logger = logging.getLogger(__name__)
 

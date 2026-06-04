@@ -14,7 +14,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from kdp_scout.db import AdsRepository, KeywordRepository, init_db
+from core.research.db import AdsRepository, KeywordRepository, init_db
 
 logger = logging.getLogger(__name__)
 

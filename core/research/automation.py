@@ -11,12 +11,12 @@ from datetime import datetime, date
 from rich.console import Console
 from rich.panel import Panel
 
-from kdp_scout.config import Config
-from kdp_scout.db import (
+from core.research.config import Config
+from core.research.db import (
     init_db, KeywordRepository, BookRepository, get_connection,
 )
-from kdp_scout.seeds import SeedManager
-from kdp_scout.progress import create_automation_progress
+from core.research.seeds import SeedManager
+from core.research.progress import create_automation_progress
 
 logger = logging.getLogger(__name__)
 console = Console()
@@ -248,7 +248,7 @@ class DailyAutomation:
         Returns:
             Dict with snapshot results.
         """
-        from kdp_scout.competitor_engine import CompetitorEngine
+        from core.research.competitor_engine import CompetitorEngine
 
         engine = CompetitorEngine()
         try:
@@ -291,7 +291,7 @@ class DailyAutomation:
         Returns:
             Dict with mining results.
         """
-        from kdp_scout.keyword_engine import mine_keywords
+        from core.research.keyword_engine import mine_keywords
 
         seeds = self._seed_mgr.list_seeds()
         if not seeds:
@@ -352,7 +352,7 @@ class DailyAutomation:
         Returns:
             Dict with scoring results.
         """
-        from kdp_scout.keyword_engine import KeywordScorer
+        from core.research.keyword_engine import KeywordScorer
 
         scorer = KeywordScorer()
         try:
@@ -374,7 +374,7 @@ class DailyAutomation:
         Returns:
             Dict with export results.
         """
-        from kdp_scout.reporting import ReportingEngine
+        from core.research.reporting import ReportingEngine
         import io
         import sys
 

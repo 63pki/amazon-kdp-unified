@@ -10,7 +10,7 @@ import logging
 from datetime import datetime, date
 from pathlib import Path
 
-from kdp_scout.config import Config
+from core.research.config import Config
 
 logger = logging.getLogger(__name__)
 

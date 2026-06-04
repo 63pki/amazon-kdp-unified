@@ -1,4 +1,5 @@
-"""Book Formatting Module
+__version__ = "1.0.0"
+"""KDP Unified — Format Module
 Base: rxpelle/book-formatter
-Enhanced with: nikmcfly trim sizes/templates, vpuna Lua filters, jonatasolmartins EPUB normalizer
+Enhanced: nikmcfly, vpuna, jonatasolmartins
 """

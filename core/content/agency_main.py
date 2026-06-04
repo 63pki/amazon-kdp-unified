@@ -18,9 +18,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from agents.definitions import ALL_AGENTS
-from agents.orchestrator import BookWriterOrchestrator
-from config import ANTHROPIC_API_KEY, DEFAULT_MODEL
+from core.content.definitions import ALL_AGENTS
+from core.content.agents.orchestrator import BookWriterOrchestrator
+# from config import ANTHROPIC_API_KEY, DEFAULT_MODEL
 
 
 def parse_args() -> argparse.Namespace:

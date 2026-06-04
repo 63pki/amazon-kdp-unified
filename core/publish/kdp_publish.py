@@ -34,8 +34,8 @@ from datetime import datetime
 sys.stdout.reconfigure(encoding="utf-8")
 
 # ─── Paths ────────────────────────────────────────────────────────────────────
-COOKIES_FILE  = Path("os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))/variables/amazon_kdp_cookies.json")
-KDP_DB        = Path("os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))/variables/kdp_knowledge.db")
+COOKIES_FILE  = Path(os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))) / "variables" / "amazon_kdp_cookies.json"
+KDP_DB        = Path(os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))) / "variables" / "kdp_knowledge.db"
 KDP_CREATE_IT = "https://kdp.amazon.com/it_IT/title-setup/kindle/new/details"
 KDP_CREATE_EN = "https://kdp.amazon.com/en_US/title-setup/kindle/new/details"
 BOOKSHELF_IT  = "https://kdp.amazon.com/it_IT/bookshelf"

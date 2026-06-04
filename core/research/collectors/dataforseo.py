@@ -16,8 +16,8 @@ import json
 import logging
 from datetime import date
 
-from kdp_scout.config import Config
-from kdp_scout.rate_limiter import registry as rate_registry
+from core.research.config import Config
+from core.research.rate_limiter import registry as rate_registry
 
 logger = logging.getLogger(__name__)
 

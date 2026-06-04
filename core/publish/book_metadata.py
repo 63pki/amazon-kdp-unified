@@ -207,7 +207,7 @@ def interactive_wizard():
     is_valid = print_validation(result, meta)
 
     if is_valid:
-        out_path = Path("os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))/books_output") / f"metadata_{meta['title'][:30].replace(' ','_')}.json"
+        out_path = Path(os.getenv("ORACLE_DIR", str(Path.home() / "SportsOracle_Ultra"))) / "books_output" / f"metadata_{meta['title'][:30].replace(' ','_')}.json"
         out_path.parent.mkdir(exist_ok=True)
         with open(out_path, "w", encoding="utf-8") as f:
             json.dump(meta, f, ensure_ascii=False, indent=2)

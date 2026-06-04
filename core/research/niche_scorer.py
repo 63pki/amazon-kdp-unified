@@ -17,10 +17,10 @@ import time
 
 from bs4 import BeautifulSoup
 
-from kdp_scout.http_client import fetch, get_browser_headers
-from kdp_scout.rate_limiter import registry as rate_registry
-from kdp_scout.config import Config
-from kdp_scout.collectors.bsr_model import estimate_daily_sales, estimate_monthly_revenue
+from core.research.http_client import fetch, get_browser_headers
+from core.research.rate_limiter import registry as rate_registry
+from core.research.config import Config
+from core.research.collectors.bsr_model import estimate_daily_sales, estimate_monthly_revenue
 
 logger = logging.getLogger(__name__)
 

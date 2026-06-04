@@ -3,9 +3,9 @@
 import os
 import tempfile
 
-from book_formatter.config import BookConfig
-from book_formatter.parsers.ast_model import Book
-from book_formatter.generators.base import BaseGenerator
+from core.format.config import BookConfig
+from core.format.parsers.ast_model import Book
+from core.format.generators.base import BaseGenerator
 
 
 class StandardEPUBGenerator(BaseGenerator):
