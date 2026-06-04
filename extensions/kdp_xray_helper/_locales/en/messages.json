@@ -1,0 +1,10 @@
+{
+  "ext_name": {
+    "message": "KDP X-Ray Helper",
+    "description": "Extension name shown in browser extension stores"
+  },
+  "ext_description": {
+    "message": "Bulk-edit KDP X-Ray entities with AI. Auto-generate character descriptions, manage aliases, and batch-apply changes to Kindle X-Ray.",
+    "description": "Extension description shown in Chrome Web Store and Edge Add-ons"
+  }
+}

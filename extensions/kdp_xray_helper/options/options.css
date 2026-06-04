@@ -1,0 +1,185 @@
+/* Developer Tools — dark theme for dev feel */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #1a1a2e;
+  color: #e0e0e0;
+  padding: 20px;
+  min-width: 500px;
+}
+
+.dev-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 22px;
+  margin-bottom: 4px;
+  color: #fff;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.card h2 {
+  font-size: 15px;
+  color: #e94560;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.row:last-child { margin-bottom: 0; }
+
+button {
+  background: #0f3460;
+  color: #e0e0e0;
+  border: 1px solid #1a4a8a;
+  padding: 7px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+button:hover {
+  background: #1a4a8a;
+}
+
+button:active {
+  background: #0a2a50;
+}
+
+button.btn-warning {
+  background: #533a00;
+  border-color: #7a5500;
+}
+
+button.btn-warning:hover {
+  background: #7a5500;
+}
+
+button.btn-danger {
+  background: #5c1010;
+  border-color: #8a2020;
+}
+
+button.btn-danger:hover {
+  background: #8a2020;
+}
+
+button.btn-small {
+  padding: 3px 10px;
+  font-size: 11px;
+}
+
+.status-badge {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: #333;
+  color: #aaa;
+}
+
+.status-badge.ok {
+  background: #0a3a0a;
+  color: #4caf50;
+}
+
+.status-badge.fail {
+  background: #3a0a0a;
+  color: #f44336;
+}
+
+.field-group {
+  margin-bottom: 10px;
+}
+
+.field-group label {
+  display: block;
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  background: #0d1b3e;
+  border: 1px solid #1a4a8a;
+  color: #e0e0e0;
+  padding: 7px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+textarea {
+  resize: vertical;
+  font-family: 'Menlo', 'Consolas', monospace;
+  font-size: 12px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #e94560;
+}
+
+.hint {
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+/* Log section */
+.log-section {
+  min-height: 200px;
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.log-header h2 { margin-bottom: 0; }
+
+#log-output {
+  background: #0a0a1a;
+  border: 1px solid #1a1a3e;
+  border-radius: 4px;
+  padding: 10px;
+  font-family: 'Menlo', 'Consolas', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  max-height: 400px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: #aaa;
+}

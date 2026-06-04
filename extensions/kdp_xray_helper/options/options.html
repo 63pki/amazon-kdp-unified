@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KDP X-Ray Helper — Developer Tools</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="dev-container">
+    <h1>🛠 Developer Tools</h1>
+    <p class="subtitle">Internal testing page — not for regular users.</p>
+
+    <!-- Connection Status -->
+    <section class="card">
+      <h2>Connection</h2>
+      <div class="row">
+        <button id="btn-ping">Ping Content Script</button>
+        <span id="ping-status" class="status-badge">—</span>
+      </div>
+    </section>
+
+    <!-- Read Operations -->
+    <section class="card">
+      <h2>Read Operations</h2>
+      <div class="row">
+        <button id="btn-quick-export">Quick Export (names only)</button>
+        <button id="btn-detailed-export">Detailed Export (navigate all)</button>
+      </div>
+      <div class="row">
+        <button id="btn-read-current">Read Current Entity Details</button>
+      </div>
+    </section>
+
+    <!-- Write Operations -->
+    <section class="card">
+      <h2>Write Operations</h2>
+
+      <div class="field-group">
+        <label>Entity Name</label>
+        <input type="text" id="input-entity-name" placeholder="e.g. Silicon Federation">
+      </div>
+
+      <div class="row">
+        <button id="btn-select-entity">Select Entity by Name</button>
+      </div>
+
+      <div class="field-group">
+        <label>Type</label>
+        <select id="input-entity-type">
+          <option value="CHARACTER">CHARACTER</option>
+          <option value="TERM">TERM</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Description</label>
+        <textarea id="input-entity-desc" rows="3" placeholder="Test description text..."></textarea>
+      </div>
+
+      <div class="row">
+        <button id="btn-add-entity" class="btn-warning">Add New Entity</button>
+        <button id="btn-process-single" class="btn-warning">Process Single (update)</button>
+      </div>
+    </section>
+
+    <!-- Duplicate Detection Test -->
+    <section class="card">
+      <h2>Duplicate Update Test</h2>
+      <p class="hint">Reads the currently selected entity, then sends an update with identical data. Checks if the extension correctly handles no-op updates.</p>
+      <div class="row">
+        <button id="btn-dup-test">Run Duplicate Update Test</button>
+      </div>
+    </section>
+
+    <!-- Batch Test -->
+    <section class="card">
+      <h2>Batch Test</h2>
+      <p class="hint">Sends a small batch of test entities (2 updates + 1 add). Uses whatever is in the JSON below.</p>
+      <textarea id="input-batch-json" rows="8" placeholder='[
+  {"name": "TestChar", "type": "CHARACTER", "description": "A test character.", "action": "update"},
+  {"name": "NewTestItem", "type": "TERM", "description": "A new test term.", "action": "add"}
+]'></textarea>
+      <div class="row">
+        <button id="btn-batch-run" class="btn-warning">Run Batch</button>
+        <button id="btn-batch-stop" class="btn-danger">Stop Batch</button>
+      </div>
+    </section>
+
+    <!-- Log Output -->
+    <section class="card log-section">
+      <div class="log-header">
+        <h2>Log</h2>
+        <button id="btn-clear-log" class="btn-small">Clear</button>
+      </div>
+      <pre id="log-output"></pre>
+    </section>
+  </div>
+
+  <script src="../shared/constants.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+"""Configuration management for KDP Scout.
+
+Loads settings from .env file with sensible defaults for all options.
+"""
+
+import os
+import logging
+from pathlib import Path
+from dotenv import load_dotenv
+
+
+# Load .env from project root
+_project_root = Path(__file__).parent.parent
+load_dotenv(_project_root / '.env')
+
+
+class Config:
+    """Central configuration for KDP Scout."""
+
+    # Database
+    DB_PATH = os.getenv('DB_PATH', 'data/kdp_scout.db')
+
+    # API Keys
+    DATAFORSEO_LOGIN = os.getenv('DATAFORSEO_LOGIN', '')
+    DATAFORSEO_API_KEY = os.getenv('DATAFORSEO_API_KEY', '')
+    ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY', '')
+
+    # Proxy
+    PROXY_URL = os.getenv('PROXY_URL', '')
+
+    # Rate limits (seconds between requests)
+    AUTOCOMPLETE_RATE_LIMIT = float(os.getenv('AUTOCOMPLETE_RATE_LIMIT', '1.5'))
+    PRODUCT_SCRAPE_RATE_LIMIT = float(os.getenv('PRODUCT_SCRAPE_RATE_LIMIT', '2.0'))
+    SEARCH_PROBE_RATE_LIMIT = float(os.getenv('SEARCH_PROBE_RATE_LIMIT', '2.0'))
+    DATAFORSEO_RATE_LIMIT = float(os.getenv('DATAFORSEO_RATE_LIMIT', '0.5'))
+
+    # Marketplace (us, de, uk, fr, es, it, etc.)
+    MARKETPLACE = os.getenv('MARKETPLACE', 'us')
+
+    # Logging
+    LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
+
+    # User agents for rotation
+    USER_AGENTS = [
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0',
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 Edg/119.0.0.0',
+        'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0',
+    ]
+
+    # Amazon autocomplete departments
+    DEPARTMENTS = {
+        'kindle': 'digital-text',
+        'books': 'stripbooks',
+        'all': 'aps',
+    }
+
+    @classmethod
+    def get_db_path(cls):
+        """Return absolute path to the database file."""
+        db_path = Path(cls.DB_PATH)
+        if not db_path.is_absolute():
+            db_path = _project_root / db_path
+        return str(db_path)
+
+    @classmethod
+    def setup_logging(cls):
+        """Configure logging based on settings."""
+        logging.basicConfig(
+            level=getattr(logging, cls.LOG_LEVEL.upper(), logging.INFO),
+            format='%(asctime)s [%(name)s] %(levelname)s: %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S',
+        )
+
+    @classmethod
+    def as_dict(cls):
+        """Return configuration as a dictionary for display."""
+        return {
+            'DB_PATH': cls.get_db_path(),
+            'DATAFORSEO_LOGIN': cls.DATAFORSEO_LOGIN or '(not set)',
+            'DATAFORSEO_API_KEY': '***' if cls.DATAFORSEO_API_KEY else '(not set)',
+            'ANTHROPIC_API_KEY': '***' if cls.ANTHROPIC_API_KEY else '(not set)',
+            'PROXY_URL': cls.PROXY_URL or '(not set)',
+            'AUTOCOMPLETE_RATE_LIMIT': f'{cls.AUTOCOMPLETE_RATE_LIMIT}s',
+            'PRODUCT_SCRAPE_RATE_LIMIT': f'{cls.PRODUCT_SCRAPE_RATE_LIMIT}s',
+            'SEARCH_PROBE_RATE_LIMIT': f'{cls.SEARCH_PROBE_RATE_LIMIT}s',
+            'DATAFORSEO_RATE_LIMIT': f'{cls.DATAFORSEO_RATE_LIMIT}s',
+            'MARKETPLACE': cls.MARKETPLACE,
+            'LOG_LEVEL': cls.LOG_LEVEL,
+            'USER_AGENTS': f'{len(cls.USER_AGENTS)} configured',
+        }
+
+
+# Amazon marketplace configurations keyed by country code.
+MARKETPLACES = {
+    'us': {
+        'domain': 'www.amazon.com',
+        'mid': 'ATVPDKIKX0DER',
+        'google_hl': 'en',
+        'bsr_model': 'us_kindle',
+        'bestsellers': {
+            'kindle': 'https://www.amazon.com/gp/bestsellers/digital-text/',
+            'kindle_free': 'https://www.amazon.com/gp/bestsellers/digital-text/154606011/',
+            'kindle_new': 'https://www.amazon.com/gp/new-releases/digital-text/',
+            'kindle_movers': 'https://www.amazon.com/gp/movers-and-shakers/digital-text/',
+        },
+    },
+    'de': {
+        'domain': 'www.amazon.de',
+        'mid': 'A1PA6795UKMFR9',
+        'google_hl': 'de',
+        'bsr_model': 'us_kindle',
+        'bestsellers': {
+            'kindle': 'https://www.amazon.de/gp/bestsellers/digital-text/',
+            'kindle_free': 'https://www.amazon.de/gp/bestsellers/digital-text/660528031/',
+            'kindle_new': 'https://www.amazon.de/gp/new-releases/digital-text/',
+            'kindle_movers': 'https://www.amazon.de/gp/movers-and-shakers/digital-text/',
+        },
+    },
+    'uk': {
+        'domain': 'www.amazon.co.uk',
+        'mid': 'A1F83G8C2ARO7P',
+        'google_hl': 'en',
+        'bsr_model': 'uk_kindle',
+        'bestsellers': {
+            'kindle': 'https://www.amazon.co.uk/gp/bestsellers/digital-text/',
+            'kindle_free': 'https://www.amazon.co.uk/gp/bestsellers/digital-text/350640011/',
+            'kindle_new': 'https://www.amazon.co.uk/gp/new-releases/digital-text/',
+            'kindle_movers': 'https://www.amazon.co.uk/gp/movers-and-shakers/digital-text/',
+        },
+    },
+    'fr': {
+        'domain': 'www.amazon.fr',
+        'mid': 'A13V1IB3VIYBER',
+        'google_hl': 'fr',
+        'bsr_model': 'us_kindle',
+        'bestsellers': {
+            'kindle': 'https://www.amazon.fr/gp/bestsellers/digital-text/',
+            'kindle_new': 'https://www.amazon.fr/gp/new-releases/digital-text/',
+        },
+    },
+    'es': {
+        'domain': 'www.amazon.es',
+        'mid': 'A1RKKUPIHCS9HS',
+        'google_hl': 'es',
+        'bsr_model': 'us_kindle',
+        'bestsellers': {
+            'kindle': 'https://www.amazon.es/gp/bestsellers/digital-text/',
+            'kindle_new': 'https://www.amazon.es/gp/new-releases/digital-text/',
+        },
+    },
+    'it': {
+        'domain': 'www.amazon.it',
+        'mid': 'APJ6JRA9NG5V4',
+        'google_hl': 'it',
+        'bsr_model': 'us_kindle',
+        'bestsellers': {
+            'kindle': 'https://www.amazon.it/gp/bestsellers/digital-text/',
+            'kindle_new': 'https://www.amazon.it/gp/new-releases/digital-text/',
+        },
+    },
+    # Approximate BSR estimates for Canada reuse the US Kindle model.
+    'ca': {
+        'domain': 'www.amazon.ca',
+        'mid': 'A2EUQ1WTGCTBG2',
+        'google_hl': 'en',
+        'bsr_model': 'us_kindle',
+        'bestsellers': {
+            'kindle': 'https://www.amazon.ca/gp/bestsellers/digital-text/',
+            'kindle_free': 'https://www.amazon.ca/gp/bestsellers/digital-text/ref=zg_bs?ie=UTF8&tf=1',
+            'kindle_new': 'https://www.amazon.ca/gp/new-releases/digital-text/',
+            'kindle_movers': 'https://www.amazon.ca/gp/movers-and-shakers/digital-text/',
+        },
+    },
+    # Approximate BSR estimates for Australia reuse the US Kindle model.
+    'au': {
+        'domain': 'www.amazon.com.au',
+        'mid': 'A39IBJ37TRP1C6',
+        'google_hl': 'en',
+        'bsr_model': 'us_kindle',
+        'bestsellers': {
+            'kindle': 'https://www.amazon.com.au/gp/bestsellers/digital-text/',
+            'kindle_free': 'https://www.amazon.com.au/gp/bestsellers/digital-text/ref=zg_bs?ie=UTF8&tf=1',
+            'kindle_new': 'https://www.amazon.com.au/gp/new-releases/digital-text/',
+            'kindle_movers': 'https://www.amazon.com.au/gp/movers-and-shakers/digital-text/',
+        },
+    },
+}
+
+
+def get_marketplace(code=None):
+    """Return the marketplace config for a given code.
+
+    Args:
+        code: Two-letter country code (e.g., 'us', 'de'). Defaults to
+              the MARKETPLACE env/config setting.
+
+    Returns:
+        Dict with marketplace settings.
+
+    Raises:
+        ValueError: If the marketplace code is not supported.
+    """
+    code = (code or Config.MARKETPLACE).lower()
+    mp = MARKETPLACES.get(code)
+    if mp is None:
+        supported = ', '.join(sorted(MARKETPLACES))
+        raise ValueError(
+            f'Unknown marketplace "{code}". Supported: {supported}'
+        )
+    return mp

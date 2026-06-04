@@ -1,0 +1,31 @@
+{
+  "name": "kdp-unified",
+  "version": "1.0.0",
+  "description": "Complete Amazon KDP publishing tool — merged from 28 repositories",
+  "main": "core/publish/index.ts",
+  "scripts": {
+    "publish:single": "ts-node core/publish/index.ts",
+    "publish:bulk": "ts-node core/publish/index.ts --bulk",
+    "publish:scrape": "ts-node core/publish/index.ts scrape",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "puppeteer": "^22.0.0",
+    "commander": "^12.0.0",
+    "csv-parse": "^5.5.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.0",
+    "@types/jest": "^29.5.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.0",
+    "@babel/core": "^7.24.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

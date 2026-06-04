@@ -1,0 +1,718 @@
+/* sidepanel.css — KDP X-Ray Helper Side Panel Styles */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  color: #333;
+  background: #fafafa;
+}
+
+.container {
+  padding: 12px;
+  max-width: 100%;
+}
+
+/* ============ HEADER ============ */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.header h1 {
+  font-size: 15px;
+  color: #232f3e;
+  font-weight: 700;
+}
+
+.header-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.icon-btn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 2px 6px;
+  font-size: 14px;
+}
+
+.icon-btn:hover {
+  background: #e8e8e8;
+}
+
+/* ============ STATUS BAR ============ */
+
+.status {
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  background: #f0f0f0;
+  color: #666;
+}
+
+.status.ready {
+  background: #e6f4ea;
+  color: #1e7e34;
+}
+
+.status.error {
+  background: #fde8e8;
+  color: #c0392b;
+}
+
+.status.working {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* ============ TABS ============ */
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.tab {
+  flex: 1;
+  padding: 7px 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 12px;
+  color: #666;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: #232f3e;
+  background: #f5f5f5;
+}
+
+.tab.active {
+  color: #232f3e;
+  font-weight: 600;
+  border-bottom-color: #ff9900;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ============ SECTIONS & LABELS ============ */
+
+.section {
+  margin-bottom: 12px;
+}
+
+.section-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.divider {
+  text-align: center;
+  margin: 12px 0;
+  color: #999;
+  font-size: 11px;
+}
+
+/* ============ FORM ELEMENTS ============ */
+
+textarea {
+  width: 100%;
+  font-family: 'SF Mono', Monaco, 'Consolas', monospace;
+  font-size: 11px;
+  padding: 8px;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  resize: vertical;
+  margin: 4px 0;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #ff9900;
+  box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.15);
+}
+
+textarea.export-area {
+  background: #f8f8f8;
+}
+
+.button-row {
+  display: flex;
+  gap: 6px;
+  margin: 6px 0;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  background: #f0f0f0;
+  transition: background 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background: #e0e0e0;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: #ff9900;
+  color: #fff;
+  border-color: #e88b00;
+  font-weight: 600;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #e88b00;
+}
+
+.btn-danger {
+  background: #d9534f;
+  color: #fff;
+  border-color: #c9302c;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #c9302c;
+}
+
+.btn-sm {
+  padding: 3px 8px;
+  font-size: 11px;
+}
+
+.btn-lg {
+  padding: 8px 16px;
+  font-size: 13px;
+  width: 100%;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+/* ============ VALIDATION RESULT ============ */
+
+.result {
+  font-size: 12px;
+  margin: 6px 0;
+  padding: 6px 8px;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  display: none;
+}
+
+.result.show {
+  display: block;
+}
+
+.result.success {
+  background: #e6f4ea;
+  color: #1e7e34;
+}
+
+.result.error {
+  background: #fde8e8;
+  color: #c0392b;
+}
+
+.result.info {
+  background: #e8f0fe;
+  color: #1a73e8;
+}
+
+/* ============ DIFF VIEW ============ */
+
+.diff-header {
+  margin-bottom: 8px;
+}
+
+.diff-header h2 {
+  font-size: 14px;
+  color: #232f3e;
+}
+
+.diff-summary {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.diff-actions {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.diff-container {
+  max-height: calc(100vh - 280px);
+  overflow-y: auto;
+}
+
+.placeholder-text {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* Diff item card */
+.diff-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.diff-item.action-add {
+  border-left: 3px solid #28a745;
+}
+
+.diff-item.action-update {
+  border-left: 3px solid #ffc107;
+}
+
+.diff-item.action-delete {
+  border-left: 3px solid #dc3545;
+}
+
+.diff-item.action-keep {
+  border-left: 3px solid #6c757d;
+  opacity: 0.7;
+}
+
+.diff-item.action-kdp_only {
+  border-left: 3px solid #17a2b8;
+  opacity: 0.6;
+}
+
+/* Fuzzy match indicator */
+.diff-match-tag {
+  font-size: 10px;
+  color: #856404;
+  background: #fff3cd;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-weight: 400;
+}
+
+/* Description preview */
+.diff-desc-preview {
+  font-size: 10px;
+  color: #777;
+}
+
+.diff-desc-text {
+  font-style: italic;
+}
+
+.diff-context {
+  font-size: 10px;
+  color: #888;
+}
+
+.diff-note {
+  font-size: 11px;
+}
+
+/* Entity editor */
+.entity-editor {
+  border: 1px solid #ff9900;
+  border-radius: 6px;
+  background: #fffdf5;
+  margin: 8px 0;
+  overflow: hidden;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: #fff8e1;
+  border-bottom: 1px solid #ffe0b2;
+}
+
+.editor-header h3 {
+  font-size: 13px;
+  color: #232f3e;
+}
+
+.editor-close {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #999;
+  padding: 0 4px;
+}
+
+.editor-body {
+  padding: 10px;
+}
+
+.editor-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+  color: #555;
+  margin: 6px 0 2px;
+}
+
+.editor-input, .editor-select {
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid #d0d0d0;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.editor-textarea {
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid #d0d0d0;
+  border-radius: 3px;
+  font-size: 11px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.char-count {
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.editor-footer {
+  display: flex;
+  gap: 6px;
+  padding: 8px 10px;
+  background: #fff8e1;
+  border-top: 1px solid #ffe0b2;
+}
+
+.diff-item-header {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  background: #f8f9fa;
+  gap: 8px;
+}
+
+.diff-checkbox {
+  flex-shrink: 0;
+}
+
+.diff-name {
+  font-weight: 600;
+  font-size: 13px;
+  flex: 1;
+}
+
+.diff-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.diff-badge.add {
+  background: #d4edda;
+  color: #155724;
+}
+
+.diff-badge.update {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.diff-badge.delete {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.diff-badge.keep {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.diff-item-body {
+  padding: 6px 10px;
+  font-size: 11px;
+}
+
+.diff-field {
+  margin-bottom: 4px;
+}
+
+.diff-field-label {
+  font-weight: 600;
+  color: #555;
+  display: inline;
+}
+
+.diff-old {
+  text-decoration: line-through;
+  color: #dc3545;
+  background: #ffeef0;
+  padding: 0 2px;
+}
+
+.diff-new {
+  color: #28a745;
+  background: #e6ffed;
+  padding: 0 2px;
+}
+
+/* ============ PROGRESS BAR ============ */
+
+.progress-section {
+  margin: 10px 0;
+}
+
+.progress-bar-container {
+  height: 22px;
+  background: #e0e0e0;
+  border-radius: 11px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ff9900, #ffb347);
+  width: 0%;
+  transition: width 0.3s;
+  text-align: center;
+  line-height: 22px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  min-width: 0;
+}
+
+.exec-status {
+  font-size: 12px;
+  color: #666;
+  margin-top: 6px;
+  text-align: center;
+}
+
+/* ============ EXECUTION RESULTS ============ */
+
+.exec-results {
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.exec-result-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-size: 11px;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 6px;
+}
+
+.exec-icon {
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+}
+
+.exec-icon.success { color: #28a745; }
+.exec-icon.error { color: #dc3545; }
+.exec-icon.cancelled { color: #ffc107; }
+
+/* ============ LOG ============ */
+
+.log {
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+  font-family: 'SF Mono', Monaco, 'Consolas', monospace;
+  font-size: 11px;
+  padding: 8px;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.log .success { color: #4ec9b0; }
+.log .error { color: #f44747; }
+.log .info { color: #569cd6; }
+.log .warn { color: #dcdcaa; }
+
+/* ============ STEP HEADERS ============ */
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ff9900;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.step-desc {
+  font-size: 11px;
+  color: #777;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.section-inner {
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+/* ============ FILE UPLOAD ZONE ============ */
+
+.upload-zone {
+  border: 2px dashed #ccc;
+  border-radius: 6px;
+  padding: 20px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fafafa;
+  margin: 4px 0;
+}
+
+.upload-zone:hover {
+  border-color: #ff9900;
+  background: #fffdf5;
+}
+
+.upload-zone.drag-over {
+  border-color: #ff9900;
+  background: #fff8e1;
+  box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.15);
+}
+
+.upload-zone.has-file {
+  border-color: #28a745;
+  border-style: solid;
+  background: #e6f4ea;
+}
+
+.upload-icon {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.upload-hint {
+  font-size: 12px;
+  color: #888;
+}
+
+.upload-filename {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e7e34;
+  margin-top: 4px;
+}
+
+.file-input-hidden {
+  display: none;
+}
+
+/* ============ TOGGLE DIVIDER ============ */
+
+.toggle-divider {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.toggle-divider:hover {
+  color: #ff9900;
+}
+
+/* ============ PROMPT SECTION ============ */
+
+.prompt-area {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  background: #f5f5f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  resize: vertical;
+  color: #333;
+}
+
+/* ============ UTILITY ============ */
+
+.hidden {
+  display: none !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}

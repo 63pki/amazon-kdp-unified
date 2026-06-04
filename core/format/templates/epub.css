@@ -1,0 +1,79 @@
+/* Book Formatter — Default EPUB stylesheet */
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+    margin: 1em;
+    text-align: justify;
+}
+
+h1 {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    text-align: left;
+    page-break-before: always;
+}
+
+h2 {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+p {
+    margin: 0;
+    text-indent: 1.5em;
+}
+
+/* First paragraph after heading: no indent */
+h1 + p, h2 + p, hr + p {
+    text-indent: 0;
+}
+
+/* Scene breaks */
+hr {
+    border: none;
+    text-align: center;
+    margin: 1.5em 0;
+}
+
+hr::after {
+    content: "* * *";
+    font-size: 0.9em;
+    letter-spacing: 0.5em;
+}
+
+/* Block quotes */
+blockquote {
+    margin: 1em 2em;
+    font-style: italic;
+}
+
+/* Emphasis */
+em {
+    font-style: italic;
+}
+
+strong {
+    font-weight: bold;
+}
+
+/* Title page styling */
+.title-page {
+    text-align: center;
+    margin-top: 30%;
+}
+
+.title-page h1 {
+    font-size: 2.5em;
+    text-align: center;
+    page-break-before: auto;
+}
+
+.title-page .author {
+    font-size: 1.5em;
+    margin-top: 2em;
+}

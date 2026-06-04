@@ -1,0 +1,91 @@
+# KDP Unified — Master Configuration
+# All modules read from this single config file
+
+# ─── LLM Provider ─────────────────────────────────────────────────────────────
+llm:
+  provider: anthropic          # anthropic | openai | ollama
+  model: claude-opus-4-5       # model name for your provider
+  fast_model: claude-haiku-4-5 # cheaper model for bulk/parallel tasks
+  api_key_env: ANTHROPIC_API_KEY
+
+  # OpenAI fallback (optional)
+  openai_model: gpt-4o
+  openai_api_key_env: OPENAI_API_KEY
+
+  # Ollama local (optional)
+  ollama_endpoint: http://localhost:11434
+  ollama_model: llama3.2
+
+# ─── Book Defaults ────────────────────────────────────────────────────────────
+book:
+  author: "Your Name"
+  language: en
+  trim_size: "6x9"             # 5x8 | 5.5x8.5 | 6x9 | 7x10 | 8x10 | 8.5x11
+  output_formats:
+    - epub                     # Kindle / D2D / Google Play
+    - pdf_paperback            # KDP print interior
+    - pdf_hardcover            # Hardcover variant
+  output_dir: ./output
+
+# ─── Research (kdp-scout) ─────────────────────────────────────────────────────
+research:
+  marketplace: us              # us | uk | de | fr | es | it | jp | ca | au
+  db_path: ./data/kdp_scout.db
+  rate_limit_delay: 2.0        # seconds between Amazon requests
+  autocomplete_expand: true    # a-z suffix expansion
+  dataforseo_login: ""         # optional: DataForSEO email
+  dataforseo_key_env: DATAFORSEO_API_KEY
+
+# ─── Content Generation ───────────────────────────────────────────────────────
+content:
+  chapters: 10
+  words_per_chapter: 2500
+  writing_style: "warm, conversational, grade-7 reading level"
+  enable_adversarial_edit: true   # autonovel-style self-critique loop
+  enable_consistency_check: true  # youngReader-style cross-chapter agent
+  parallel_chapter_workers: 3     # kindle-book-agency parallel expansion
+
+# ─── Cover Generation ─────────────────────────────────────────────────────────
+cover:
+  width: 2560
+  height: 1600
+  dpi: 300
+  image_provider: dalle          # dalle | stability | none (PIL only)
+  image_api_key_env: OPENAI_API_KEY
+
+# ─── KDP Publishing ───────────────────────────────────────────────────────────
+publish:
+  mode: single                   # single (sabbonzo Playwright) | bulk (auto-kdp CSV)
+  browser: playwright            # playwright | puppeteer
+  headless: true
+  dry_run: false
+  csv_path: ./data/books.csv     # for bulk mode (auto-kdp)
+  marketplaces:                  # pricing markets (auto-kdp keys)
+    - us
+    - uk
+    - de
+    - fr
+    - es
+    - it
+    - ca
+
+# ─── Audiobook ────────────────────────────────────────────────────────────────
+audiobook:
+  enabled: false
+  tts_provider: elevenlabs       # elevenlabs | openai | system
+  tts_api_key_env: ELEVENLABS_API_KEY
+
+# ─── Marketing ────────────────────────────────────────────────────────────────
+marketing:
+  enable_ams_ads: false
+  enable_blog_post: true
+  enable_launch_calendar: true
+  dual_market: false             # fracabu US+IT dual publishing
+
+# ─── Paths ────────────────────────────────────────────────────────────────────
+paths:
+  categories_db: ./data/categories
+  manuscripts: ./manuscripts
+  covers: ./output/covers
+  epub_output: ./output/epub
+  pdf_output: ./output/pdf
